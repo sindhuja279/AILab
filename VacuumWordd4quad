@@ -1,0 +1,88 @@
+def vacuum_cleaner():
+  
+    location = input("Enter the initial location (A, B, C, or D): ").strip().upper()
+    a_status = int(input("Enter the status of Room A (0 for clean, 1 for dirty): "))
+    b_status = int(input("Enter the status of Room B (0 for clean, 1 for dirty): "))
+    c_status = int(input("Enter the status of Room C (0 for clean, 1 for dirty): "))
+    d_status = int(input("Enter the status of Room D (0 for clean, 1 for dirty): "))
+    
+    status = {'A': a_status, 'B': b_status, 'C': c_status, 'D': d_status}
+    goal_state = {'A': 0, 'B': 0, 'C': 0, 'D': 0}  
+    cost = 0 
+    cleaning_limit = int(input("Enter the cleaning limit (number of rooms it can clean before recharging): "))
+    cleaned_rooms = 0 
+
+    while status != goal_state:
+        if cleaned_rooms >= cleaning_limit:
+            print("Cleaning limit reached. The vacuum needs to recharge.")
+          
+            cleaned_rooms = 0
+            print("The vacuum is recharging...")
+            continue  
+   
+        if status[location] == 1: 
+            print(f"Location {location} is Dirty. Cleaning Location {location}.")
+            status[location] = 0  
+            cost += 1 
+            cleaned_rooms += 1 
+            print(f"Location {location} has been Cleaned. COST for SUCK: {cost}.")
+        else:
+            print(f"Location {location} is already clean.")
+
+        
+        if location == 'A':
+            location = 'B'
+        elif location == 'B':
+            location = 'C'
+        elif location == 'C':
+            location = 'D'
+        elif location == 'D':
+            location = 'A'
+
+        print(f"Moving to Location {location}.")
+
+       
+        if status == goal_state:
+            print(f"Goal state achieved: {status} with total cost: {cost}.")
+            break  
+
+    print("Final Status of Rooms: {'A': 0, 'B': 0, 'C': 0, 'D': 0}  0")
+
+    
+vacuum_cleaner()
+
+
+
+Output1
+Enter the initial location (A, B, C, or D): A
+Enter the status of Room A (0 for clean, 1 for dirty): 0
+Enter the status of Room B (0 for clean, 1 for dirty): 0
+Enter the status of Room C (0 for clean, 1 for dirty): 0
+Enter the status of Room D (0 for clean, 1 for dirty): 0
+Enter the cleaning limit (number of rooms it can clean before recharging): 2
+Final Status of Rooms: {'A': 0, 'B': 0, 'C': 0, 'D': 0}  
+
+
+Output2
+Enter the initial location (A, B, C, or D): A
+Enter the status of Room A (0 for clean, 1 for dirty): 1
+Enter the status of Room B (0 for clean, 1 for dirty): 1
+Enter the status of Room C (0 for clean, 1 for dirty): 1
+Enter the status of Room D (0 for clean, 1 for dirty): 1
+Enter the cleaning limit (number of rooms it can clean before recharging): 2
+Location A is Dirty. Cleaning Location A.
+Location A has been Cleaned. COST for SUCK: 1.
+Moving to Location B.
+Location B is Dirty. Cleaning Location B.
+Location B has been Cleaned. COST for SUCK: 2.
+Moving to Location C.
+Cleaning limit reached. The vacuum needs to recharge.
+The vacuum is recharging...
+Location C is Dirty. Cleaning Location C.
+Location C has been Cleaned. COST for SUCK: 3.
+Moving to Location D.
+Location D is Dirty. Cleaning Location D.
+Location D has been Cleaned. COST for SUCK: 4.
+Moving to Location A.
+Goal state achieved: {'A': 0, 'B': 0, 'C': 0, 'D': 0} with total cost: 4.
+Final Status of Rooms: {'A': 0, 'B': 0, 'C': 0, 'D': 0}  0
