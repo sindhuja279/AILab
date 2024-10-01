@@ -1,0 +1,71 @@
+class VacuumCleaner:
+    def __init__(self, location, status):
+        self.location = location 
+        self.status = status  
+        self.goal_state = [0, 0]  
+        self.cost = 0  
+
+    def clean(self):
+        while self.status != self.goal_state:
+            if self.location == 'A':
+                if self.status[0] == 1:
+                    print("Location A is Dirty. Cleaning Location A.")
+                    self.status[0] = 0
+                    self.cost += 1
+                    print(f"Location A has been Cleaned. COST for SUCK: {self.cost}")
+                else:
+                    print("Location A is already clean.")
+                print("Moving to Location B.")
+                self.location = 'B'
+
+            elif self.location == 'B':
+                if self.status[1] == 1:
+                    print("Location B is Dirty. Cleaning Location B.")
+                    self.status[1] = 0
+                    self.cost += 1
+                    print(f"Location B has been Cleaned. COST for SUCK: {self.cost}")
+                else:
+                    print("Location B is already clean.")
+                print("Moving to Location A.")
+                self.location = 'A'
+        
+        print(f"Goal state achieved: {self.status} with total cost: {self.cost}")
+
+def get_user_input():
+    location = input("Enter initial location (A or B): ").strip().upper()
+    a_status = int(input("Enter status of Room A (0 for clean, 1 for dirty): "))
+    b_status = int(input("Enter status of Room B (0 for clean, 1 for dirty): "))
+    return location, [a_status, b_status]
+    
+def main():
+    location, status = get_user_input()
+    vacuum = VacuumCleaner(location, status)
+    vacuum.clean()
+
+main()
+
+
+
+
+
+
+Output1
+Enter initial location (A or B): A
+Enter status of Room A (0 for clean, 1 for dirty): 1
+Enter status of Room B (0 for clean, 1 for dirty): 0
+Location A is Dirty. Cleaning Location A.
+Location A has been Cleaned. COST for SUCK: 1
+Moving to Location B.
+Goal state achieved: [0, 0] with total cost: 1
+
+Output2
+Enter initial location (A or B): A
+Enter status of Room A (0 for clean, 1 for dirty): 1
+Enter status of Room B (0 for clean, 1 for dirty): 1
+Location A is Dirty. Cleaning Location A.
+Location A has been Cleaned. COST for SUCK: 1
+Moving to Location B.
+Location B is Dirty. Cleaning Location B.
+Location B has been Cleaned. COST for SUCK: 2
+Moving to Location A.
+Goal state achieved: [0, 0] with total cost: 2
